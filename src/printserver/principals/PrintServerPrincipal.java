@@ -1,4 +1,4 @@
-package printserver.principal;
+package printserver.principals;
 
 /*
  *
@@ -122,13 +122,10 @@ public class PrintServerPrincipal implements Principal, java.io.Serializable {
         if (this == o)
             return true;
 
-        if (!(o instanceof PrintServerPrincipal))
+        if (!(o instanceof PrintServerPrincipal that))
             return false;
-        PrintServerPrincipal that = (PrintServerPrincipal)o;
 
-        if (this.getName().equals(that.getName()))
-            return true;
-        return false;
+        return this.getName().equals(that.getName());
     }
 
     /**

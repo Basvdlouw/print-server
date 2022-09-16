@@ -1,4 +1,4 @@
-package printserver.permission;
+package printserver.permissions;
 
 import java.io.Serializable;
 import java.security.BasicPermission;

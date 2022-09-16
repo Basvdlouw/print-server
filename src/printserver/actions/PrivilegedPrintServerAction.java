@@ -1,10 +1,10 @@
 package printserver.actions;
 
-import printserver.permission.PrintServerPermission;
-
 import java.security.AccessControlException;
 import java.security.Permission;
 import java.security.PrivilegedAction;
+
+import printserver.permissions.PrintServerPermission;
 
 public abstract class PrivilegedPrintServerAction<T> implements PrivilegedAction<T> {
     private final String actionId;

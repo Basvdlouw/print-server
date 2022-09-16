@@ -1,12 +1,13 @@
-package printserver.module;
-
-import sample.principal.SamplePrincipal;
+package printserver.modules;
 
 import javax.security.auth.Subject;
 import javax.security.auth.callback.*;
 import javax.security.auth.login.FailedLoginException;
 import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
+
+import printserver.principals.PrintServerPrincipal;
+
 import java.util.Map;
 
 /**
@@ -43,7 +44,7 @@ public class PrintServerLoginModule implements LoginModule {
     private char[] password;
 
     // testUser's SamplePrincipal
-    private SamplePrincipal userPrincipal;
+    private PrintServerPrincipal userPrincipal;
 
     /**
      * Initialize this <code>LoginModule</code>.
@@ -203,7 +204,7 @@ public class PrintServerLoginModule implements LoginModule {
             // to the Subject
 
             // assume the user we authenticated is the SamplePrincipal
-            userPrincipal = new SamplePrincipal(username);
+            userPrincipal = new PrintServerPrincipal(username);
             if (!subject.getPrincipals().contains(userPrincipal))
                 subject.getPrincipals().add(userPrincipal);
 
