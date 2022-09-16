@@ -8,7 +8,7 @@ import javax.security.auth.spi.LoginModule;
 
 import printserver.principals.PrintServerPrincipal;
 
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p> This sample LoginModule authenticates users with a password.
@@ -25,6 +25,8 @@ import java.util.Map;
  * debug messages will be output to the output stream, System.out.
  */
 public class PrintServerLoginModule implements LoginModule {
+
+    private final static Set<String> allowedUsernames = new HashSet<>(Arrays.asList("Alice", "Bart", "Cecile", "Dirk", "Erica"));
 
     // initial state
     private Subject subject;
@@ -119,10 +121,10 @@ public class PrintServerLoginModule implements LoginModule {
 
         // print debugging information
         if (debug) {
-            System.out.println("\t\t[SampleLoginModule] " +
+            System.out.println("\t\t[PrintServerLoginModule] " +
                     "user entered user name: " +
                     username);
-            System.out.print("\t\t[SampleLoginModule] " +
+            System.out.print("\t\t[PrintServerLoginModule] " +
                     "user entered password: ");
             for (int i = 0; i < password.length; i++)
                 System.out.print(password[i]);
@@ -132,7 +134,8 @@ public class PrintServerLoginModule implements LoginModule {
         // verify the username/password
         boolean usernameCorrect = false;
         boolean passwordCorrect = false;
-        if (username.equals("testUser"))
+
+        if (this.allowedUsernames.contains(username))
             usernameCorrect = true;
         if (usernameCorrect &&
                 password.length == 12 &&
@@ -197,21 +200,12 @@ public class PrintServerLoginModule implements LoginModule {
      * @throws LoginException if the commit fails.
      */
     public boolean commit() throws LoginException {
-        if (succeeded == false) {
+        if (!succeeded) {
             return false;
         } else {
             // add a Principal (authenticated identity)
             // to the Subject
-
-            // assume the user we authenticated is the SamplePrincipal
-            userPrincipal = new PrintServerPrincipal(username);
-            if (!subject.getPrincipals().contains(userPrincipal))
-                subject.getPrincipals().add(userPrincipal);
-
-            if (debug) {
-                System.out.println("\t\t[SampleLoginModule] " +
-                        "added SamplePrincipal to Subject");
-            }
+            configurePrincipals(subject, username);
 
             // in any case, clean out state
             username = null;
@@ -221,6 +215,26 @@ public class PrintServerLoginModule implements LoginModule {
 
             commitSucceeded = true;
             return true;
+        }
+    }
+
+    private void configurePrincipals(Subject subject, String username) {
+        switch (username) {
+            case "Alice":
+                subject.getPrincipals().add(new PrintServerPrincipal("sysadmin"));
+                break;
+            case "Bart":
+                subject.getPrincipals().add(new PrintServerPrincipal("concierge"));
+                break;
+            case "Cecile":
+                subject.getPrincipals().add(new PrintServerPrincipal("poweruser"));
+                break;
+            case "Dirk":
+            case "Erica":
+                subject.getPrincipals().add(new PrintServerPrincipal("normaluser"));
+                break;
+            default:
+                throw new IllegalStateException(String.format("User %s is not authenticated", username));
         }
     }
 
