@@ -22,3 +22,4 @@ grant	codebase "file:./SampleAction.jar",
    permission java.util.PropertyPermission "user.home", "read";
    permission java.io.FilePermission "foo.txt", "read";
 };
+
