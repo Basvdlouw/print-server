@@ -27,5 +27,3 @@ jobs:
       working-directory: ./src
     - run: jar -cvf SampleLM.jar sample/module/SampleLoginModule.class sample/principal/SamplePrincipal.class
       working-directory: ./src
-    - run: java -classpath SampleAzn.jar:SampleAction.jar:SampleLM.jar -Djava.security.manager -Djava.security.policy==sampleazn.policy -Djava.security.auth.login.config==sample_jaas.config sample.SampleAzn
-      working-directory: ./src
