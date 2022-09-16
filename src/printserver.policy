@@ -1,17 +1,17 @@
 /** Java 2 Access Control Policy for the JAAS Print Server Application **/
 
 /* grant the LoginModule permissions */
-grant codebase "file:./LoginModule.jar" {
+grant codebase "file:./PrintServerLoginModule.jar" {
     permission javax.security.auth.AuthPermission "modifyPrincipals";
 };
 
 /* grant the PrintServer permissions */
-grant codebase "file:./printserver.jar" {
+grant codebase "file:./PrintServer.jar" {
    permission javax.security.auth.AuthPermission "createLoginContext.PrintServer";
    permission javax.security.auth.AuthPermission "doAsPrivileged";
 };
 
-grant codebase "file:./Action.jar", Principal printserver.principal.PrintServerPrincipal "sysadmin" {
+grant codebase "file:./PrintServerActions.jar", Principal printserver.principal.PrintServerPrincipal "sysadmin" {
    permission printserver.PrintServerPermission "print";
    permission printserver.PrintServerPermission "queue";
    permission printserver.PrintServerPermission "topqueue";
@@ -23,7 +23,7 @@ grant codebase "file:./Action.jar", Principal printserver.principal.PrintServerP
    permission printserver.PrintServerPermission "setconfig";
 };
 
-grant codebase "file:./Action.jar", Principal printserver.principal.PrintServerPrincipal "concierge" {
+grant codebase "file:./PrintServerActions.jar", Principal printserver.principal.PrintServerPrincipal "concierge" {
    permission printserver.PrintServerPermission "start";
    permission printserver.PrintServerPermission "stop";
    permission printserver.PrintServerPermission "reset";
@@ -31,12 +31,12 @@ grant codebase "file:./Action.jar", Principal printserver.principal.PrintServerP
    permission printserver.PrintServerPermission "setconfig";
 };
 
-grant codebase "file:./Action.jar", Principal printserver.principal.PrintServerPrincipal "poweruser" {
+grant codebase "file:./PrintServerActions.jar", Principal printserver.principal.PrintServerPrincipal "poweruser" {
    permission printserver.PrintServerPermission "topqueue";
    permission printserver.PrintServerPermission "reset";
 };
 
-grant codebase "file:./Action.jar", Principal printserver.principal.PrintServerPrincipal "normaluser" {
+grant codebase "file:./PrintServerActions.jar", Principal printserver.principal.PrintServerPrincipal "normaluser" {
    permission printserver.PrintServerPermission "print";
    permission printserver.PrintServerPermission "queue";
    permission printserver.PrintServerPermission "status";

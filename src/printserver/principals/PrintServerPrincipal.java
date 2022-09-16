@@ -60,7 +60,7 @@ public class PrintServerPrincipal implements Principal, java.io.Serializable {
     /**
      * @serial
      */
-    private String name;
+    private final String name;
 
     /**
      * Create a SamplePrincipal with a Sample username.
@@ -122,8 +122,9 @@ public class PrintServerPrincipal implements Principal, java.io.Serializable {
         if (this == o)
             return true;
 
-        if (!(o instanceof PrintServerPrincipal that))
+        if (!(o instanceof PrintServerPrincipal))
             return false;
+        PrintServerPrincipal that = (PrintServerPrincipal)o;
 
         return this.getName().equals(that.getName());
     }

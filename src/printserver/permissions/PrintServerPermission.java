@@ -26,9 +26,10 @@ public class PrintServerPermission extends BasicPermission implements Serializab
     }
 
     public boolean equals(Object obj) {
-        if (!(obj instanceof PrintServerPermission bp)) {
+        if (!(obj instanceof PrintServerPermission)) {
             return false;
         }
+        PrintServerPermission bp = (PrintServerPermission) obj;
         return id.equals(bp.id);
     }
 }

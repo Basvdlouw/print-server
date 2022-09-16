@@ -1,4 +1,4 @@
-package printserver;
+package printserver.server;
 
 public class PrintServer {
     public static void print(String filename) {
