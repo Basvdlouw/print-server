@@ -19,7 +19,7 @@ jobs:
       with:
         java-version: '8'
         distribution: 'temurin'
-    - run: mdkir out
+    - run: mkdir out
     - run: javac -d ./out/ ./src/printserver/*.java ./src/printserver/permissions/*.java ./src/printserver/actions/*.java ./src/printserver/modules/*.java ./src/printserver/principals/*.java ./src/printserver/server/*.java
     - run: jar -cvf PrintServer.jar ./out/printserver/Main.class ./out/printserver/PrintServerCallbackHandler.class
     - run: jar -cvf PrintServerLoginModule.jar ./out/printserver/modules/PrintServerLoginModule.class -C ./out/printserver/principals/ .
