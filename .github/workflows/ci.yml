@@ -20,6 +20,6 @@ jobs:
         java-version: '8'
         distribution: 'temurin'
     - run: javac -d ./out/ ./src/printserver/*.java ./src/printserver/permissions/*.java ./src/printserver/actions/*.java ./src/printserver/modules/*.java ./src/printserver/principals/*.java ./src/printserver/server/*.java
-    - run: jar -cvf PrintServer.jar -c /out/printserver/PrintServer.class
-    - run: jar -cvf PrintServerLoginModule.jar -c /out/printserver/modules/PrintServerLoginModule.class
-    - run: jar -cvf PrintServerActions.jar sample/module/SampleLoginModule.class sample/principal/SamplePrincipal.class
+    - run: jar -cvf PrintServer.jar ./out/printserver/Main.class ./out/printserver/PrintServerCallbackHandler.class
+    - run: jar -cvf PrintServerLoginModule.jar ./out/printserver/modules/PrintServerLoginModule.class -C ./out/printserver/principals/ .
+    - run: jar -cvf PrintServerActions.jar -C /out/printserver/actions/ .
