@@ -122,9 +122,9 @@ public class PrintServerPrincipal implements Principal, java.io.Serializable {
         if (this == o)
             return true;
 
-        if (!(o instanceof SamplePrincipal))
+        if (!(o instanceof PrintServerPrincipal))
             return false;
-        SamplePrincipal that = (SamplePrincipal)o;
+        PrintServerPrincipal that = (PrintServerPrincipal)o;
 
         if (this.getName().equals(that.getName()))
             return true;
