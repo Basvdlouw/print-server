@@ -12,7 +12,6 @@ public abstract class PrivilegedPrintServerAction<T> implements PrivilegedAction
         this.actionId = actionId;
     }
     abstract void executeAction();
-
     @Override
     public T run() {
         final Permission permission = new PrintServerPermission(this.actionId);
