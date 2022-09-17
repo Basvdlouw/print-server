@@ -97,6 +97,7 @@ public class PrintServerPrincipal implements Principal, java.io.Serializable {
      *
      * @return a string representation of this <code>SamplePrincipal</code>.
      */
+    @Override
     public String toString() {
         return("PrintServerPrincipal:  " + name);
     }
@@ -115,6 +116,7 @@ public class PrintServerPrincipal implements Principal, java.io.Serializable {
      * @return true if the specified Object is equal equal to this
      *          <code>SamplePrincipal</code>.
      */
+    @Override
     public boolean equals(Object o) {
         if (o == null)
             return false;
@@ -136,6 +138,7 @@ public class PrintServerPrincipal implements Principal, java.io.Serializable {
      *
      * @return a hash code for this <code>SamplePrincipal</code>.
      */
+    @Override
     public int hashCode() {
         return name.hashCode();
     }
