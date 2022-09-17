@@ -2,6 +2,8 @@
 
 Assignment D: access control
 
+[![Java CI](https://github.com/Basvdlouw/print-server/actions/workflows/ci.yml/badge.svg)](https://github.com/Basvdlouw/print-server/actions/workflows/ci.yml)
+
 # Setup 
 
 Run script to create jar files
