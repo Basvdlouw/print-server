@@ -98,7 +98,7 @@ public class PrintServerPrincipal implements Principal, java.io.Serializable {
      * @return a string representation of this <code>SamplePrincipal</code>.
      */
     public String toString() {
-        return("SamplePrincipal:  " + name);
+        return("PrintServerPrincipal:  " + name);
     }
 
     /**
