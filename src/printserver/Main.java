@@ -11,13 +11,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * This Sample application attempts to authenticate a user
- * and executes a SampleAction as that user.
- * <p>
- * If the user successfully authenticates itself,
- * the username and number of Credentials is displayed.
- */
 public class Main {
 
     private static final List<PrivilegedAction<? extends PrivilegedPrintServerAction<?>>> PRIVILEGED_ACTIONS = Arrays.asList(
@@ -35,47 +28,39 @@ public class Main {
     /**
      * Attempt to authenticate the user.
      *
-     * @param args input arguments for this application.  These are ignored.
+     * @param args input arguments for this application. These are ignored.
      */
     public static void main(String[] args) {
+        final LoginContext loginContext = login();
+        final Subject subject = loginContext.getSubject();
+        printSubjectInformation(subject);
 
-        // Obtain a LoginContext, needed for authentication. Tell it
-        // to use the LoginModule implementation specified by the
-        // entry named "Sample" in the JAAS login configuration
-        // file and to also use the specified CallbackHandler.
-        LoginContext lc = null;
+        // Now try to execute the print actions as the authenticated Subject
+        executeActions(subject);
+    }
+
+    private static LoginContext login() {
+        LoginContext loginContext = null;
         try {
-            lc = new LoginContext("PrintServer", new PrintServerCallbackHandler());
-        } catch (LoginException le) {
-            System.err.println("Cannot create LoginContext. " + le.getMessage());
-            System.exit(-1);
-        } catch (SecurityException se) {
-            System.err.println("Cannot create LoginContext. " + se.getMessage());
+            loginContext = new LoginContext("PrintServer", new PrintServerCallbackHandler());
+        } catch (LoginException | SecurityException ex) {
+            System.err.println("Cannot create LoginContext. " + ex.getMessage());
             System.exit(-1);
         }
-
         // the user has 3 attempts to authenticate successfully
-        int i;
-        for (i = 0; i < 3; i++) {
+        int i = 0;
+        while (i < 3) {
             try {
-
                 // attempt authentication
-                lc.login();
-
+                loginContext.login();
                 // if we return with no exception, authentication succeeded
                 break;
 
             } catch (LoginException le) {
-
                 System.err.println("Authentication failed:");
                 System.err.println("  " + le.getMessage());
-                try {
-                    Thread.currentThread().sleep(3000);
-                } catch (Exception e) {
-                    // ignore
-                }
-
             }
+            i++;
         }
 
         // did they fail three times?
@@ -85,22 +70,22 @@ public class Main {
         }
 
         System.out.println("Authentication succeeded!");
+        return loginContext;
+    }
 
-        Subject mySubject = lc.getSubject();
-
-        // let's see what Principals we have
-        Iterator principalIterator = mySubject.getPrincipals().iterator();
+    private static void printSubjectInformation(final Subject subject) {
+        final Iterator<Principal> principalIterator = subject.getPrincipals().iterator();
         System.out.println("Authenticated user has the following Principals:");
         while (principalIterator.hasNext()) {
-            Principal p = (Principal) principalIterator.next();
-            System.out.println("\t" + p.toString());
+            final Principal principal = principalIterator.next();
+            System.out.println("\t" + principal.toString());
         }
 
-        System.out.println("User has " + mySubject.getPublicCredentials().size() + " Public Credential(s)");
+        System.out.println("User has " + subject.getPublicCredentials().size() + " Public Credential(s)");
+        System.out.println("User has " + subject.getPrivateCredentials().size() + " Private Credential(s)");
+    }
 
-        // Now try to execute the print actions as the authenticated Subject
-        PRIVILEGED_ACTIONS.forEach(privilegedAction -> Subject.doAsPrivileged(mySubject, privilegedAction, null));
-
-        System.exit(0);
+    private static void executeActions(final Subject subject) {
+        PRIVILEGED_ACTIONS.forEach(privilegedAction -> Subject.doAsPrivileged(subject, privilegedAction, null));
     }
 }
