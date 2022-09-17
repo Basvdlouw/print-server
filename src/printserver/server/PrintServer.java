@@ -6,11 +6,11 @@ public class PrintServer {
     }
 
     public static void queue() {
-        System.out.println("Showing the queue of print jobs...");
+        System.out.println("Showing the queue of print jobs ...");
     }
 
     public static void topQueue(int job) {
-        System.out.printf("Putting job: %s at the top of the queue...%n", job);
+        System.out.printf("Putting job: %s at the top of the queue ...%n", job);
     }
 
     public static void start() {
@@ -22,18 +22,18 @@ public class PrintServer {
     }
 
     public static void reset() {
-        System.out.println("Stopping the print server, erasing the print queue, and restarting the print server...");
+        System.out.println("Stopping the print server, erasing the print queue, and restarting the print server ...");
     }
 
     public static void status() {
-        System.out.println("Showing the status of the printer...");
+        System.out.println("Showing the status of the printer ...");
     }
 
     public static void readConfig(String parameter)  {
-        System.out.printf("Showing the value of the parameter: %s%n", parameter);
+        System.out.printf("Showing the value of the parameter: %s ...%n", parameter);
     }
 
     public static void setConfig(String parameter, String value)  {
-        System.out.printf("Setting the value of the parameter: %s to %s%n", parameter, value);
+        System.out.printf("Setting the value of the parameter: %s to %s ...%n", parameter, value);
     }
 }
