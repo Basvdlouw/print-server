@@ -12,6 +12,7 @@ public class TopQueueAction extends PrivilegedPrintServerAction<TopQueueAction> 
         super(ACTION_ID);
         this.job = job;
     }
+
     @Override
     void executeAction() {
         PrintServer.topQueue(this.job);

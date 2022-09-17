@@ -8,6 +8,7 @@ public class StatusAction extends PrivilegedPrintServerAction<StatusAction> {
     public StatusAction() {
         super(ACTION_ID);
     }
+
     @Override
     void executeAction() {
         PrintServer.status();

@@ -8,6 +8,7 @@ public class QueueAction extends PrivilegedPrintServerAction<QueueAction> {
     public QueueAction() {
         super(ACTION_ID);
     }
+
     @Override
     void executeAction() {
         PrintServer.queue();

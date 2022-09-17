@@ -8,6 +8,7 @@ public class StopAction extends PrivilegedPrintServerAction<StopAction> {
     public StopAction() {
         super(ACTION_ID);
     }
+
     @Override
     void executeAction() {
         PrintServer.stop();

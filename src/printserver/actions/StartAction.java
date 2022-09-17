@@ -8,6 +8,7 @@ public class StartAction extends PrivilegedPrintServerAction<StartAction> {
     public StartAction() {
         super(ACTION_ID);
     }
+
     @Override
     void executeAction() {
         PrintServer.start();

@@ -29,11 +29,11 @@ public class PrintServer {
         System.out.println("Showing the status of the printer ...");
     }
 
-    public static void readConfig(String parameter)  {
+    public static void readConfig(String parameter) {
         System.out.printf("Showing the value of the parameter: %s ...%n", parameter);
     }
 
-    public static void setConfig(String parameter, String value)  {
+    public static void setConfig(String parameter, String value) {
         System.out.printf("Setting the value of the parameter: %s to %s ...%n", parameter, value);
     }
 }

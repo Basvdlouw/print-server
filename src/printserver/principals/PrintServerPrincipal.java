@@ -58,7 +58,7 @@ public class PrintServerPrincipal implements Principal, java.io.Serializable {
 
     @Override
     public String toString() {
-        return("PrintServerPrincipal:  " + name);
+        return ("PrintServerPrincipal:  " + name);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class PrintServerPrincipal implements Principal, java.io.Serializable {
 
         if (!(o instanceof PrintServerPrincipal))
             return false;
-        final PrintServerPrincipal that = (PrintServerPrincipal)o;
+        final PrintServerPrincipal that = (PrintServerPrincipal) o;
 
         return this.getName().equals(that.getName());
     }

@@ -96,8 +96,7 @@ public class PrintServerLoginModule implements LoginModule {
             throw new LoginException("Error: " + uce.getCallback().toString() +
                     " not available to garner authentication information " +
                     "from the user");
-        }
-        catch (Exception exception) {
+        } catch (Exception exception) {
             System.out.println(exception);
         }
 

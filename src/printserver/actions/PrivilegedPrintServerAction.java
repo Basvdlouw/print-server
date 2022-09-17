@@ -8,10 +8,13 @@ import printserver.permissions.PrintServerPermission;
 
 public abstract class PrivilegedPrintServerAction<T> implements PrivilegedAction<T> {
     private final String actionId;
+
     public PrivilegedPrintServerAction(String actionId) {
         this.actionId = actionId;
     }
+
     abstract void executeAction();
+
     @Override
     public T run() {
         final Permission permission = new PrintServerPermission(this.actionId);
