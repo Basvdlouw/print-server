@@ -1,3 +1,10 @@
+SET executionPath=%cd%
+
+rem Set working directory to repository root
+SET scriptPath=%~dp0
+cd %scriptPath:~0,-1%
+cd ..
+
 rem Make output dir
 mkdir out
 
@@ -10,3 +17,5 @@ jar -cvf PrintServer.jar printserver/Main.class printserver/PrintServerCallbackH
 jar -cvf PrintServerLoginModule.jar printserver/modules/PrintServerLoginModule.class -C printserver/principals/ .
 jar -cvf PrintServerActions.jar -C printserver/actions/ .
 
+rem Move back to execution path
+cd %executionPath%
