@@ -1,7 +1,8 @@
 # OU Software Security 
 
 Assignment D: access control
-Build status: [![Java CI](https://github.com/Basvdlouw/print-server/actions/workflows/ci.yml/badge.svg)](https://github.com/Basvdlouw/print-server/actions/workflows/ci.yml)
+
+[![Java CI](https://github.com/Basvdlouw/print-server/actions/workflows/ci.yml/badge.svg)](https://github.com/Basvdlouw/print-server/actions/workflows/ci.yml)
 
 # Setup 
 
