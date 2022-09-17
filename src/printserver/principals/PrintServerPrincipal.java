@@ -56,10 +56,6 @@ import java.security.Principal;
  * @see javax.security.auth.Subject
  */
 public class PrintServerPrincipal implements Principal, java.io.Serializable {
-
-    /**
-     * @serial
-     */
     private final String name;
 
     /**
@@ -113,7 +109,7 @@ public class PrintServerPrincipal implements Principal, java.io.Serializable {
      * @param o Object to be compared for equality with this
      *          <code>SamplePrincipal</code>.
      *
-     * @return true if the specified Object is equal equal to this
+     * @return true if the specified Object is equal to this
      *          <code>SamplePrincipal</code>.
      */
     @Override
@@ -126,7 +122,7 @@ public class PrintServerPrincipal implements Principal, java.io.Serializable {
 
         if (!(o instanceof PrintServerPrincipal))
             return false;
-        PrintServerPrincipal that = (PrintServerPrincipal)o;
+        final PrintServerPrincipal that = (PrintServerPrincipal)o;
 
         return this.getName().equals(that.getName());
     }

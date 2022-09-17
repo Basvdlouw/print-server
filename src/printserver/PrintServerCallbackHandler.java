@@ -30,11 +30,11 @@ class PrintServerCallbackHandler implements CallbackHandler {
     public void handle(Callback[] callbacks)
             throws IOException, UnsupportedCallbackException {
 
-        for (int i = 0; i < callbacks.length; i++) {
-            if (callbacks[i] instanceof TextOutputCallback) {
+        for (Callback callback : callbacks) {
+            if (callback instanceof TextOutputCallback) {
 
                 // display the message according to the specified type
-                TextOutputCallback toc = (TextOutputCallback)callbacks[i];
+                TextOutputCallback toc = (TextOutputCallback) callback;
                 switch (toc.getMessageType()) {
                     case TextOutputCallback.INFORMATION:
                         System.out.println(toc.getMessage());
@@ -50,27 +50,27 @@ class PrintServerCallbackHandler implements CallbackHandler {
                                 toc.getMessageType());
                 }
 
-            } else if (callbacks[i] instanceof NameCallback) {
+            } else if (callback instanceof NameCallback) {
 
                 // prompt the user for a username
-                NameCallback nc = (NameCallback)callbacks[i];
+                NameCallback nc = (NameCallback) callback;
 
                 System.err.print(nc.getPrompt());
                 System.err.flush();
                 nc.setName((new BufferedReader
                         (new InputStreamReader(System.in))).readLine());
 
-            } else if (callbacks[i] instanceof PasswordCallback) {
+            } else if (callback instanceof PasswordCallback) {
 
                 // prompt the user for sensitive information
-                PasswordCallback pc = (PasswordCallback)callbacks[i];
+                PasswordCallback pc = (PasswordCallback) callback;
                 System.err.print(pc.getPrompt());
                 System.err.flush();
                 pc.setPassword(System.console().readPassword());
 
             } else {
                 throw new UnsupportedCallbackException
-                        (callbacks[i], "Unrecognized Callback");
+                        (callback, "Unrecognized Callback");
             }
         }
     }

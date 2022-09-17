@@ -88,8 +88,9 @@ public class PrintServerLoginModule implements LoginModule {
      *                              is unable to perform the authentication.
      */
     public boolean login() throws LoginException {
+        // terrible method which should be refactored
 
-        // prompt for a user name and password
+        // prompt for a username and password
         if (callbackHandler == null)
             throw new LoginException("Error: no CallbackHandler available " +
                     "to garner authentication information from the user");
@@ -101,7 +102,7 @@ public class PrintServerLoginModule implements LoginModule {
         try {
             callbackHandler.handle(callbacks);
             username = ((NameCallback) callbacks[0]).getName();
-            System.out.println(username);
+            System.out.printf("Username: %s%n", username);
             char[] tmpPassword = ((PasswordCallback) callbacks[1]).getPassword();
             if (tmpPassword == null) {
                 // treat a NULL password as an empty password
@@ -111,7 +112,6 @@ public class PrintServerLoginModule implements LoginModule {
             System.arraycopy(tmpPassword, 0,
                     password, 0, tmpPassword.length);
             ((PasswordCallback) callbacks[1]).clearPassword();
-
         } catch (java.io.IOException ioe) {
             throw new LoginException(ioe.toString());
         } catch (UnsupportedCallbackException uce) {
@@ -130,17 +130,15 @@ public class PrintServerLoginModule implements LoginModule {
                     username);
             System.out.print("\t\t[PrintServerLoginModule] " +
                     "user entered password: ");
-            for (int i = 0; i < password.length; i++)
-                System.out.print(password[i]);
+            for (char c : password) System.out.print(c);
             System.out.println();
         }
 
-        // verify the username/password
-        boolean usernameCorrect = false;
-        boolean passwordCorrect = false;
+        // verify the username
+        boolean usernameCorrect = allowedUsernames.contains(username);
 
-        if (allowedUsernames.contains(username))
-            usernameCorrect = true;
+        // Why are we comparing a character array instead of a string....
+        // Terrible code which should be improved
         if (usernameCorrect &&
                 password.length == 12 &&
                 password[0] == 't' &&
@@ -157,22 +155,18 @@ public class PrintServerLoginModule implements LoginModule {
                 password[11] == 'd') {
 
             // authentication succeeded!!!
-            passwordCorrect = true;
             if (debug)
                 System.out.println("\t\t[PrintServerLoginModule] " +
                         "authentication succeeded");
             succeeded = true;
             return true;
         } else {
-
             // authentication failed -- clean out state
             if (debug)
                 System.out.println("\t\t[PrintServerLoginModule] " +
                         "authentication failed");
             succeeded = false;
             username = null;
-            for (int i = 0; i < password.length; i++)
-                password[i] = ' ';
             password = null;
             if (!usernameCorrect) {
                 throw new FailedLoginException("User Name Incorrect");
@@ -210,13 +204,9 @@ public class PrintServerLoginModule implements LoginModule {
             // add a Principal (authenticated identity)
             // to the Subject
             configurePrincipals(subject, username);
-
             // in any case, clean out state
             username = null;
-            for (int i = 0; i < password.length; i++)
-                password[i] = ' ';
             password = null;
-
             commitSucceeded = true;
             return true;
         }
@@ -260,17 +250,13 @@ public class PrintServerLoginModule implements LoginModule {
      * @throws LoginException if the abort fails.
      */
     public boolean abort() throws LoginException {
-        if (succeeded == false) {
+        if (!succeeded) {
             return false;
-        } else if (succeeded == true && commitSucceeded == false) {
+        } else if (!commitSucceeded) {
             // login succeeded but overall authentication failed
             succeeded = false;
             username = null;
-            if (password != null) {
-                for (int i = 0; i < password.length; i++)
-                    password[i] = ' ';
-                password = null;
-            }
+            password = null;
             userPrincipal = null;
         } else {
             // overall authentication succeeded and commit succeeded,
@@ -293,16 +279,10 @@ public class PrintServerLoginModule implements LoginModule {
      * @throws LoginException if the logout fails.
      */
     public boolean logout() throws LoginException {
-
         subject.getPrincipals().remove(userPrincipal);
-        succeeded = false;
         succeeded = commitSucceeded;
         username = null;
-        if (password != null) {
-            for (int i = 0; i < password.length; i++)
-                password[i] = ' ';
-            password = null;
-        }
+        password = null;
         userPrincipal = null;
         return true;
     }
