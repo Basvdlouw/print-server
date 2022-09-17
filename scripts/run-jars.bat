@@ -1,0 +1,1 @@
+java -classpath PrintServer.jar;PrintServerActions.jar;PrintServerLoginModule.jar -Djava.security.manager -Djava.security.policy==printserver.policy -Djava.security.auth.login.config==printserver_jaas.config printserver.Main
