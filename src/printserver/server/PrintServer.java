@@ -14,11 +14,11 @@ public class PrintServer {
     }
 
     public static void start() {
-        System.out.println("Starting the print server...");
+        System.out.println("Starting the print server ...");
     }
 
     public static void stop() {
-        System.out.println("Stopping the print server...");
+        System.out.println("Stopping the print server ...");
     }
 
     public static void reset() {
