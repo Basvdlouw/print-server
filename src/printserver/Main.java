@@ -1,13 +1,15 @@
 package printserver;
 
-import printserver.actions.PrintAction;
+import printserver.actions.*;
 
 import javax.security.auth.Subject;
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 import java.security.Principal;
 import java.security.PrivilegedAction;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * This Sample application attempts to authenticate a user
@@ -17,6 +19,18 @@ import java.util.Iterator;
  * the username and number of Credentials is displayed.
  */
 public class Main {
+
+    private static final List<PrivilegedAction<? extends PrivilegedPrintServerAction<?>>> PRIVILEGED_ACTIONS = Arrays.asList(
+            new PrintAction("dummy_file"),
+            new QueueAction(),
+            new TopQueueAction(1),
+            new StartAction(),
+            new StopAction(),
+            new ResetAction(),
+            new StatusAction(),
+            new ReadConfigAction("dummy_parameter"),
+            new SetConfigAction("dummy_parameter", "dummy_value")
+    );
 
     /**
      * Attempt to authenticate the user.
@@ -84,9 +98,8 @@ public class Main {
 
         System.out.println("User has " + mySubject.getPublicCredentials().size() + " Public Credential(s)");
 
-        // now try to execute the SampleAction as the authenticated Subject
-        PrivilegedAction<PrintAction> action = new PrintAction("dummy");
-        Subject.doAsPrivileged(mySubject, action, null);
+        // Now try to execute the print actions as the authenticated Subject
+        PRIVILEGED_ACTIONS.forEach(privilegedAction -> Subject.doAsPrivileged(mySubject, privilegedAction, null));
 
         System.exit(0);
     }

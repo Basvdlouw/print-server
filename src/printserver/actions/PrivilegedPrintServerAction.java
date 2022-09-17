@@ -19,10 +19,10 @@ public abstract class PrivilegedPrintServerAction<T> implements PrivilegedAction
         if (securityManager != null) {
             try {
                 securityManager.checkPermission(permission);
-                System.out.printf("Permission to execute %s action was granted", this.actionId);
+                System.out.printf("Permission to execute %s action was granted.%n", this.actionId);
                 executeAction();
             } catch (AccessControlException accessControlException) {
-                System.out.printf("Permission to execute %s action was denied", this.actionId);
+                System.out.printf("Permission to execute %s action was denied.%n", this.actionId);
             }
         }
         return null;
