@@ -10,42 +10,22 @@ import printserver.principals.PrintServerPrincipal;
 
 import java.util.*;
 
-/**
- * <p> This sample LoginModule authenticates users with a password.
- *
- * <p> This LoginModule only recognizes one user:       testUser
- * <p> testUser's password is:  testPassword
- *
- * <p> If testUser successfully authenticates itself,
- * a <code>SamplePrincipal</code> with the testUser's user name
- * is added to the Subject.
- *
- * <p> This LoginModule recognizes the debug option.
- * If set to true in the login Configuration,
- * debug messages will be output to the output stream, System.out.
- */
 public class PrintServerLoginModule implements LoginModule {
 
-    private final static Set<String> allowedUsernames = new HashSet<>(Arrays.asList("Alice", "Bart", "Cecile", "Dirk", "Erica"));
+    private static final Set<String> allowedUsernames = new HashSet<>(Arrays.asList("Alice", "Bart", "Cecile", "Dirk", "Erica"));
 
     // initial state
     private Subject subject;
     private CallbackHandler callbackHandler;
-    private Map sharedState;
-    private Map options;
 
-    // configurable option
     private boolean debug = false;
 
-    // the authentication status
     private boolean succeeded = false;
     private boolean commitSucceeded = false;
 
-    // username and password
     private String username;
     private char[] password;
 
-    // testUser's SamplePrincipal
     private PrintServerPrincipal userPrincipal;
 
     /**
@@ -69,8 +49,6 @@ public class PrintServerLoginModule implements LoginModule {
 
         this.subject = subject;
         this.callbackHandler = callbackHandler;
-        this.sharedState = sharedState;
-        this.options = options;
 
         // initialize any configured options
         debug = "true".equalsIgnoreCase((String) options.get("debug"));
@@ -185,7 +163,7 @@ public class PrintServerLoginModule implements LoginModule {
      * <p> If this LoginModule's own authentication attempt
      * succeeded (checked by retrieving the private state saved by the
      * <code>login</code> method), then this method associates a
-     * <code>SamplePrincipal</code>
+     * <code>PrintServerPrincipal</code>
      * with the <code>Subject</code> located in the
      * <code>LoginModule</code>.  If this LoginModule's own
      * authentication attempted failed, then this method removes
@@ -269,7 +247,7 @@ public class PrintServerLoginModule implements LoginModule {
     /**
      * Logout the user.
      *
-     * <p> This method removes the <code>SamplePrincipal</code>
+     * <p> This method removes the <code>PrintServerPrincipal</code>
      * that was added by the <code>commit</code> method.
      *
      * <p>
