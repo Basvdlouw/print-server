@@ -18,9 +18,10 @@ jobs:
         distribution: 'temurin'
     - run: mkdir out
     - run: javac -d ./out/ src/printserver/*.java src/printserver/permissions/*.java src/printserver/actions/*.java src/printserver/modules/*.java src/printserver/principals/*.java src/printserver/server/*.java
-    - run: jar -cvf PrintServer.jar printserver/Main.class printserver/PrintServerCallbackHandler.class
+    - run: jar -cvf PrintServer.jar printserver/Main.class printserver/PrintServerCallbackHandler.class printserver/permissions/*.class printserver/server/*.class 
       working-directory: ./out
-    - run: jar -cvf PrintServerLoginModule.jar printserver/modules/PrintServerLoginModule.class -C printserver/principals/ .
+    - run: jar -cvf PrintServerLoginModule.jar printserver/modules/PrintServerLoginModule.class printserver/principals/*.class
       working-directory: ./out
-    - run: jar -cvf PrintServerActions.jar -C printserver/actions/ .
+    - run: jar -cvf PrintServerActions.jar printserver/actions/*.class
       working-directory: ./out
+
