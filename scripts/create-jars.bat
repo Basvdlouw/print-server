@@ -13,9 +13,9 @@ javac -d ./out/ ./src/printserver/*.java ./src/printserver/permissions/*.java ./
 
 rem Create jar files in out directory 
 cd out 
-jar -cvf PrintServer.jar printserver/Main.class printserver/PrintServerCallbackHandler.class
-jar -cvf PrintServerLoginModule.jar printserver/modules/PrintServerLoginModule.class -C printserver/principals/ .
-jar -cvf PrintServerActions.jar -C printserver/actions/ .
+jar -cvf PrintServer.jar printserver/Main.class printserver/PrintServerCallbackHandler.class printserver/permissions/*.class printserver/server/*.class 
+jar -cvf PrintServerLoginModule.jar printserver/modules/PrintServerLoginModule.class printserver/principals/*.class
+jar -cvf PrintServerActions.jar printserver/actions/*.class
 
 rem Move back to execution path
 cd %executionPath%

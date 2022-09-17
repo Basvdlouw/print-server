@@ -31,7 +31,7 @@ public class Main {
         // file and to also use the specified CallbackHandler.
         LoginContext lc = null;
         try {
-            lc = new LoginContext("Sample", new PrintServerCallbackHandler());
+            lc = new LoginContext("PrintServer", new PrintServerCallbackHandler());
         } catch (LoginException le) {
             System.err.println("Cannot create LoginContext. " + le.getMessage());
             System.exit(-1);
@@ -85,7 +85,7 @@ public class Main {
         System.out.println("User has " + mySubject.getPublicCredentials().size() + " Public Credential(s)");
 
         // now try to execute the SampleAction as the authenticated Subject
-        PrivilegedAction action = new PrintAction("dummy");
+        PrivilegedAction<PrintAction> action = new PrintAction("dummy");
         Subject.doAsPrivileged(mySubject, action, null);
 
         System.exit(0);

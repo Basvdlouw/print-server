@@ -101,6 +101,7 @@ public class PrintServerLoginModule implements LoginModule {
         try {
             callbackHandler.handle(callbacks);
             username = ((NameCallback) callbacks[0]).getName();
+            System.out.println(username);
             char[] tmpPassword = ((PasswordCallback) callbacks[1]).getPassword();
             if (tmpPassword == null) {
                 // treat a NULL password as an empty password
@@ -117,6 +118,9 @@ public class PrintServerLoginModule implements LoginModule {
             throw new LoginException("Error: " + uce.getCallback().toString() +
                     " not available to garner authentication information " +
                     "from the user");
+        }
+        catch (Exception exception) {
+            System.out.println(exception);
         }
 
         // print debugging information
@@ -135,7 +139,7 @@ public class PrintServerLoginModule implements LoginModule {
         boolean usernameCorrect = false;
         boolean passwordCorrect = false;
 
-        if (this.allowedUsernames.contains(username))
+        if (allowedUsernames.contains(username))
             usernameCorrect = true;
         if (usernameCorrect &&
                 password.length == 12 &&
@@ -155,7 +159,7 @@ public class PrintServerLoginModule implements LoginModule {
             // authentication succeeded!!!
             passwordCorrect = true;
             if (debug)
-                System.out.println("\t\t[SampleLoginModule] " +
+                System.out.println("\t\t[PrintServerLoginModule] " +
                         "authentication succeeded");
             succeeded = true;
             return true;
@@ -163,7 +167,7 @@ public class PrintServerLoginModule implements LoginModule {
 
             // authentication failed -- clean out state
             if (debug)
-                System.out.println("\t\t[SampleLoginModule] " +
+                System.out.println("\t\t[PrintServerLoginModule] " +
                         "authentication failed");
             succeeded = false;
             username = null;

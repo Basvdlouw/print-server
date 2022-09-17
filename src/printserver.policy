@@ -1,43 +1,45 @@
 /** Java 2 Access Control Policy for the JAAS Print Server Application **/
 
 /* grant the LoginModule permissions */
-grant codebase "file:./PrintServerLoginModule.jar" {
+grant codebase "file:./out/PrintServerLoginModule.jar" {
     permission javax.security.auth.AuthPermission "modifyPrincipals";
 };
 
 /* grant the PrintServer permissions */
-grant codebase "file:./PrintServer.jar" {
+grant codebase "file:./out/PrintServer.jar" {
    permission javax.security.auth.AuthPermission "createLoginContext.PrintServer";
    permission javax.security.auth.AuthPermission "doAsPrivileged";
+   permission java.lang.RuntimePermission "readFileDescriptor";
+   permission java.lang.RuntimePermission "writeFileDescriptor";
 };
 
-grant codebase "file:./PrintServerActions.jar", Principal printserver.principal.PrintServerPrincipal "sysadmin" {
-   permission printserver.PrintServerPermission "print";
-   permission printserver.PrintServerPermission "queue";
-   permission printserver.PrintServerPermission "topqueue";
-   permission printserver.PrintServerPermission "start";
-   permission printserver.PrintServerPermission "stop";
-   permission printserver.PrintServerPermission "reset";
-   permission printserver.PrintServerPermission "status";
-   permission printserver.PrintServerPermission "readconfig";
-   permission printserver.PrintServerPermission "setconfig";
+grant codebase "file:./out/PrintServerActions.jar", Principal printserver.principals.PrintServerPrincipal "sysadmin" {
+   permission printserver.permissions.PrintServerPermission "print";
+   permission printserver.permissions.PrintServerPermission "queue";
+   permission printserver.permissions.PrintServerPermission "topqueue";
+   permission printserver.permissions.PrintServerPermission "start";
+   permission printserver.permissions.PrintServerPermission "stop";
+   permission printserver.permissions.PrintServerPermission "reset";
+   permission printserver.permissions.PrintServerPermission "status";
+   permission printserver.permissions.PrintServerPermission "readconfig";
+   permission printserver.permissions.PrintServerPermission "setconfig";
 };
 
-grant codebase "file:./PrintServerActions.jar", Principal printserver.principal.PrintServerPrincipal "concierge" {
-   permission printserver.PrintServerPermission "start";
-   permission printserver.PrintServerPermission "stop";
-   permission printserver.PrintServerPermission "reset";
-   permission printserver.PrintServerPermission "readconfig";
-   permission printserver.PrintServerPermission "setconfig";
+grant codebase "file:./out/PrintServerActions.jar", Principal printserver.principals.PrintServerPrincipal "concierge" {
+   permission printserver.permissions.PrintServerPermission "start";
+   permission printserver.permissions.PrintServerPermission "stop";
+   permission printserver.permissions.PrintServerPermission "reset";
+   permission printserver.permissions.PrintServerPermission "readconfig";
+   permission printserver.permissions.PrintServerPermission "setconfig";
 };
 
-grant codebase "file:./PrintServerActions.jar", Principal printserver.principal.PrintServerPrincipal "poweruser" {
-   permission printserver.PrintServerPermission "topqueue";
-   permission printserver.PrintServerPermission "reset";
+grant codebase "file:./out/PrintServerActions.jar", Principal printserver.principals.PrintServerPrincipal "poweruser" {
+   permission printserver.permissions.PrintServerPermission "topqueue";
+   permission printserver.permissions.PrintServerPermission "reset";
 };
 
-grant codebase "file:./PrintServerActions.jar", Principal printserver.principal.PrintServerPrincipal "normaluser" {
-   permission printserver.PrintServerPermission "print";
-   permission printserver.PrintServerPermission "queue";
-   permission printserver.PrintServerPermission "status";
+grant codebase "file:./out/PrintServerActions.jar", Principal printserver.principals.PrintServerPrincipal "normaluser" {
+   permission printserver.permissions.PrintServerPermission "print";
+   permission printserver.permissions.PrintServerPermission "queue";
+   permission printserver.permissions.PrintServerPermission "status";
 };
