@@ -13,18 +13,6 @@ grant codebase "file:./out/PrintServer.jar" {
    permission java.lang.RuntimePermission "writeFileDescriptor";
 };
 
-grant codebase "file:./out/PrintServerActions.jar", Principal printserver.principals.PrintServerPrincipal "sysadmin" {
-   permission printserver.permissions.PrintServerPermission "print";
-   permission printserver.permissions.PrintServerPermission "queue";
-   permission printserver.permissions.PrintServerPermission "topqueue";
-   permission printserver.permissions.PrintServerPermission "start";
-   permission printserver.permissions.PrintServerPermission "stop";
-   permission printserver.permissions.PrintServerPermission "reset";
-   permission printserver.permissions.PrintServerPermission "status";
-   permission printserver.permissions.PrintServerPermission "readconfig";
-   permission printserver.permissions.PrintServerPermission "setconfig";
-};
-
 grant codebase "file:./out/PrintServerActions.jar", Principal printserver.principals.PrintServerPrincipal "concierge" {
    permission printserver.permissions.PrintServerPermission "start";
    permission printserver.permissions.PrintServerPermission "stop";

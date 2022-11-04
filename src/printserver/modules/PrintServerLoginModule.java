@@ -192,7 +192,13 @@ public class PrintServerLoginModule implements LoginModule {
     private void configurePrincipals(Subject subject, String username) {
         switch (username) {
             case "Alice":
-                subject.getPrincipals().add(new PrintServerPrincipal("sysadmin"));
+                subject.getPrincipals().addAll(
+                        Arrays.asList(
+                                new PrintServerPrincipal("concierge"),
+                                new PrintServerPrincipal("poweruser"),
+                                new PrintServerPrincipal("normaluser")
+                        )
+                );
                 break;
             case "Bart":
                 subject.getPrincipals().add(new PrintServerPrincipal("concierge"));
