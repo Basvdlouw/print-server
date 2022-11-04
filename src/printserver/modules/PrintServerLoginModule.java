@@ -12,7 +12,7 @@ import java.util.*;
 
 public class PrintServerLoginModule implements LoginModule {
 
-    private static final Set<String> allowedUsernames = new HashSet<>(Arrays.asList("Alice", "Bart", "Cecile", "Dirk", "Erica"));
+    private static final Set<String> ALLOWED_USERNAMES = new HashSet<>(Arrays.asList("Alice", "Bart", "Cecile", "Dirk", "Erica"));
 
     // initial state
     private Subject subject;
@@ -112,7 +112,7 @@ public class PrintServerLoginModule implements LoginModule {
         }
 
         // verify the username
-        boolean usernameCorrect = allowedUsernames.contains(username);
+        boolean usernameCorrect = ALLOWED_USERNAMES.contains(username);
 
         if(usernameCorrect && new String(password).equals("testPassword")) {
 
