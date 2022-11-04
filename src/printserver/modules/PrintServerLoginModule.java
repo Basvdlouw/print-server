@@ -114,22 +114,7 @@ public class PrintServerLoginModule implements LoginModule {
         // verify the username
         boolean usernameCorrect = allowedUsernames.contains(username);
 
-        // Why are we comparing a character array instead of a string....
-        // Terrible code which should be improved
-        if (usernameCorrect &&
-                password.length == 12 &&
-                password[0] == 't' &&
-                password[1] == 'e' &&
-                password[2] == 's' &&
-                password[3] == 't' &&
-                password[4] == 'P' &&
-                password[5] == 'a' &&
-                password[6] == 's' &&
-                password[7] == 's' &&
-                password[8] == 'w' &&
-                password[9] == 'o' &&
-                password[10] == 'r' &&
-                password[11] == 'd') {
+        if(usernameCorrect && new String(password).equals("testPassword")) {
 
             // authentication succeeded!!!
             if (debug)
